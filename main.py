@@ -70,13 +70,20 @@ class PdfReport:
 
         webbrowser.open(self.filename)
 
+amount = float(input('Hey user, enter the bill amount: '))
+period = input('Enter the period. e.g. December 2021 ')
+the_bill = Bill(amount, period)
 
-the_bill = Bill(amount=120, period='March 2021')
-john = Flatmate(name="John", day_in_house=17)
-marry = Flatmate(name="Marry", day_in_house=24)
+your_name = input('Enter your name: ')
+days = int(input(f'Enter how many days {your_name} was home in the bill period: '))
+flatmate1 = Flatmate(your_name, days)
 
-print(john.pays(bill=the_bill, flatmate2=marry))
-print(marry.pays(bill=the_bill, flatmate2=john))
+flatmate_name = input('Enter flatmate\'s name: ')
+days2 = int(input(f'Enter how many days {flatmate_name} was home in the bill period: '))
+flatmate2 = Flatmate(flatmate_name, days2)
 
-pdf_report = PdfReport(filename='Report1.pdf')
-pdf_report.generate(john, marry, the_bill)
+print(f'{flatmate1.name} pays: ',flatmate1.pays(the_bill, flatmate2))
+print(f'{flatmate2.name} pays: ',flatmate2.pays(the_bill, flatmate1))
+
+pdf_report = PdfReport(f'{the_bill.period}.pdf')
+pdf_report.generate(flatmate1, flatmate2, the_bill)
