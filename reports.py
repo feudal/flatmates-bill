@@ -1,4 +1,5 @@
 import webbrowser
+import os
 
 from fpdf import FPDF
 
@@ -20,26 +21,28 @@ class PdfReport:
         pdf.add_page()
 
         pdf.set_font(family='Times', style='B', size=30)
-        #Add icon
-        pdf.image('house.png', w=30, h=30)
-        #Add title to the bill
+        # Add icon
+        pdf.image('files/house.png', w=30, h=30)
+        # Add title to the bill
         pdf.cell(w=540, h=100, txt='Flatmates Bill', border=0, align='L', ln=1)
-        #Insert the period of the bill
+        # Insert the period of the bill
         pdf.set_font(family='Times', style='B', size=16)
         pdf.cell(w=100, h=50, txt='Period:', border=0, align='L')
         pdf.cell(w=440, h=50, txt=bill.period, border=0, align='L', ln=1)
-        #Insert name of the flatmates and amount that they need to pay
+        # Insert name of the flatmates and amount that they need to pay
         pdf.set_font(family='Times', style='I', size=14)
         pdf.cell(w=100, h=25, txt=flatmate1.name, border=0, align='L')
         pdf.cell(w=440, h=25, txt=flatmate1_pay + ' $', border=0, align='L', ln=1)
         pdf.cell(w=100, h=25, txt=flatmate2.name, border=0, align='L')
         pdf.cell(w=440, h=25, txt=flatmate2_pay + ' $', border=0, align='L', ln=1)
-        #Toal amount of the bill
+        # Total amount of the bill
         pdf.cell(w=100, h=25, txt='Total', border=0, align='L')
         pdf.cell(w=440, h=25, txt=str(bill.amount) + ' $', border=0, align='L', ln=1)
 
         # pdf.cell(w=540, h=500, txt='', border=1, align='L', ln=1)
         # pdf.cell(w=540, h=50, txt='', border=1, align='L', ln=1)
+
+        os.chdir("files")
 
         pdf.output(self.filename)
 
